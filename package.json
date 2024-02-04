@@ -1,0 +1,15 @@
+{
+  "name": "@dirty-matchbox/database",
+  "version": "1.0.1",
+  "main": "./dist/index.js",
+  "scripts": {
+    "build": "tsc",
+    "release": "standard-version && git push --follow-tags && npm publish"
+  },
+  "peerDependencies": {
+    "awilix": "*"
+  },
+  "devDependencies": {
+    "standard-version": "^9.5.0"
+  }
+}
