@@ -10,7 +10,10 @@
     "awilix": "*"
   },
   "devDependencies": {
-    "standard-version": "^9.5.0",
-    "release-it": "^17.0.1"
+    "release-it": "^17.0.1",
+    "standard-version": "^9.5.0"
+  },
+  "dependencies": {
+    "pg": "^8.11.3"
   }
 }
