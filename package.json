@@ -4,7 +4,7 @@
   "main": "./dist/index.js",
   "scripts": {
     "build": "tsc",
-    "prepare": "yarn run build",
+    "prepare": "npm run build",
     "release": "standard-version && git push --follow-tags && npm publish"
   },
   "peerDependencies": {
