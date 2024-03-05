@@ -4,7 +4,7 @@
   "main": "./dist/index.js",
   "scripts": {
     "build": "tsc",
-    "prepare": "npm run build",
+    "prepare": "yarn run build",
     "release": "standard-version && git push --follow-tags && npm publish"
   },
   "peerDependencies": {
@@ -16,6 +16,8 @@
   },
   "dependencies": {
     "@types/pg": "^8.11.0",
-    "pg": "^8.11.3"
+    "awilix": "^10.0.1",
+    "pg": "^8.11.3",
+    "typescript": "^5.3.3"
   }
 }
