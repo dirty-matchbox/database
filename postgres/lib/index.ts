@@ -64,7 +64,7 @@ class PostgresDatabase {
   }
 
   healthCheck = async () => {
-    this.query({ raw: HEALTH_CHECK_QUERY });
+    return this.query({ raw: HEALTH_CHECK_QUERY });
   };
 }
 
