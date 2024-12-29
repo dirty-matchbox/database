@@ -5,7 +5,7 @@ export type PostgresDatabaseFactory = ({
   config,
 }: {
   config: PostgresDatabaseConfig;
-}) => ({ logger }) => PostgresDatabase;
+}) => () => ({ logger }) => PostgresDatabase;
 
 export interface PostgresDatabaseInjections {
   postgresDatabaseFactory: PostgresDatabaseFactory;
