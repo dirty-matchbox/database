@@ -60,6 +60,7 @@ class PostgresDatabase {
       return result;
     } catch (error) {
       this.logger.error("Cannot run query", raw);
+      throw error;
     }
   }
 
