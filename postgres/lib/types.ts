@@ -1,5 +1,5 @@
 export type PostgresDatabaseConfig = {
-  type?: "postgress";
+  type?: "postgres";
   version?: number;
   port: number;
   name: string;
