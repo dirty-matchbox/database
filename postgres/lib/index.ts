@@ -1,13 +1,14 @@
 import { PostgresDatabaseConfig } from "./types";
-import { Pool } from "pg";
+import { Client, Pool, PoolClient } from "pg";
 
 //  TODO: add to README.md https://node-postgres.com/apis/pool
 const HEALTH_CHECK_QUERY = "SELECT NOW();";
 
 class PostgresDatabase {
-  pool: Pool | undefined = undefined;
-  logger = console;
-  config: PostgresDatabaseConfig;
+  private pool: Pool | undefined = undefined;
+  private logger = console;
+  private config: PostgresDatabaseConfig;
+  private client: PoolClient;
   constructor({
     config,
     logger = console,
@@ -31,33 +32,52 @@ class PostgresDatabase {
         max: this.config.max,
         allowExitOnIdle: this.config.allowExitOnIdle,
       });
-      this.pool.on("connect", () =>
-        this.logger.info(
-          `Postgress Database ${this.config.name} successfully connected`
-        )
-      );
-      this.pool.on("error", (error) =>
-        this.logger.info(
-          `Postgress Database ${this.config.name} failed to connect`,
-          error
-        )
-      );
-      await this.healthCheck();
+      this.addListeners();
+      this.client = await this.pool.connect();
     } catch (error) {
       this.logger.error(
         `Failed to initialize Postgres Database ${this.config.name}`,
         error
       );
-      throw error;
+    }
+  }
+
+  private addListeners() {
+    this.pool.on("connect", () => {
+      this.logger.info(
+        `Postgres Database ${this.config.name} successfully connected`
+      );
+    });
+    this.pool.on("release", () => {
+      this.logger.info(
+        `Postgres Database ${this.config.name} connection release`
+      );
+    });
+    this.pool.on("error", (error) => {
+      this.logger.info(`Postgres Database ${this.config.name} error`, error);
+    });
+  }
+
+  disconnect() {
+    try {
+      if (this.client) {
+        this.client.release();
+      }
+      if (this.pool) {
+        this.pool.end();
+      }
+    } catch (error) {
+      this.logger.error("Cannot close connections", error);
     }
   }
 
   async query<Result>({ raw, values }: { raw: string; values?: any[] }) {
     try {
-      const client = await this.pool.connect();
-      const result = await client.query<Result>(raw, values);
-      await client.release();
-      return result;
+      if (!this.client) {
+        throw new Error("Client is not initialized");
+      }
+      const result = await this?.client.query<Result>(raw, values);
+      return { rows: result.rows, count: result.rowCount };
     } catch (error) {
       this.logger.error("Cannot run query", raw);
       throw error;
