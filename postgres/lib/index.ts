@@ -1,7 +1,6 @@
 import { PostgresDatabaseConfig } from "./types";
-import { Client, Pool, PoolClient } from "pg";
+import { Pool, PoolClient } from "pg";
 
-//  TODO: add to README.md https://node-postgres.com/apis/pool
 const HEALTH_CHECK_QUERY = "SELECT NOW();";
 
 class PostgresDatabase {

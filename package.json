@@ -7,7 +7,7 @@
     "build": "tsc",
     "prepare": "npm run build",
     "release": "standard-version && git push --follow-tags && npm publish",
-    "start-postgres-example": "yarn --cwd ./postgres/example  start-dev-example"
+    "start-postgres-example": "yarn --cwd ./postgres/example start-dev-example"
   },
   "peerDependencies": {
     "awilix": "*"
