@@ -85,7 +85,8 @@ class PostgresDatabase {
   }
 
   healthCheck = async () => {
-    return this.query({ raw: HEALTH_CHECK_QUERY });
+    await this.query({ raw: HEALTH_CHECK_QUERY });
+    console.info("Health check passed at ", new Date().toISOString());
   };
 }
 
