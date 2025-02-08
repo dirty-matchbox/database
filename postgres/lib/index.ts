@@ -1,9 +1,9 @@
-import { PostgresDatabaseConfig } from "./types";
+import { PostgresDatabaseConfig, PostgresDatabaseInterface } from "./types";
 import { Pool, PoolClient } from "pg";
 
 const HEALTH_CHECK_QUERY = "SELECT NOW();";
 
-class PostgresDatabase {
+class PostgresDatabase implements PostgresDatabaseInterface {
   private pool: Pool | undefined = undefined;
   private logger = console;
   private config: PostgresDatabaseConfig;
