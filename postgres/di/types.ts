@@ -1,11 +1,11 @@
 import PostgresDatabase from "../lib";
 import { PostgresDatabaseConfig, PostgresDatabaseInterface } from "../lib/types";
 
-export type PostgresDatabaseFactory = ({
+export type PostgresDatabaseFactory = () => ({
   config,
 }: {
   config: PostgresDatabaseConfig;
-}) => () => ({ logger }) => PostgresDatabaseInterface;
+}) => ({ logger }) => PostgresDatabaseInterface;
 
 export interface PostgresDatabaseInjections {
   postgresDatabaseFactory: PostgresDatabaseFactory;
