@@ -5,7 +5,7 @@ import {
 } from "../lib/types";
 import { type PostgresDatabaseFactory } from "./types";
 
-const postgresDatabaseFactory =
+const postgresDatabaseFactory: PostgresDatabaseFactory =
   () =>{
   const create = ({ config }: { config: PostgresDatabaseConfig }) =>
   ({ logger }) =>
