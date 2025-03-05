@@ -2,15 +2,20 @@
   "compilerOptions": {
     "experimentalDecorators": true,
     "baseUrl": ".",
-    "paths": {},
-    "outDir": "./dist"
+    "paths": {
+      "@dirty-matchbox/database": ["../../dist"],
+      "@dirty-matchbox/database/*": ["../../dist/*"],
+    },
+    "outDir": "./dist",
   },
-  "include": ["./index.ts", "./src/**/*", "./config/**/*"],
+  "include": ["./index.ts", "./src/**/*", "./config/**/*", "./migrations/**/*"],
   "exclude": ["node_modules", "./src/**/tests/**", "./src/**/dist/**"],
   "emitDecoratorMetadata": true,
+  "allowSyntheticDefaultImports": false,
   "target": "ES2020",
   "module": "commonjs",
   "strict": true,
+  "isolatedModules": true,
   "esModuleInterop": true,
   "skipLibCheck": true,
   "forceConsistentCasingInFileNames": true,

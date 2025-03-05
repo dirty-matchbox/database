@@ -1,4 +1,9 @@
-import { PostgresDatabaseConfig, PostgresDatabaseInterface } from "./types";
+import {
+  PostgresDatabaseConfig,
+  PostgresDatabaseInterface,
+  PostgresDatabaseQuery,
+  Transaction,
+} from "./types";
 import { Pool, PoolClient } from "pg";
 
 const HEALTH_CHECK_QUERY = "SELECT NOW();";
@@ -65,28 +70,48 @@ class PostgresDatabase implements PostgresDatabaseInterface {
       if (this.pool) {
         this.pool.end();
       }
+      this.logger.error("Closed connection");
     } catch (error) {
       this.logger.error("Cannot close connections", error);
     }
   }
 
-  async query<Result>({ raw, values }: { raw: string; values?: any[] }) {
+  query = async <Result>({ raw, values }: PostgresDatabaseQuery) => {
+    this.checkIfClientIsInitialized();
     try {
-      if (!this.client) {
-        throw new Error("Client is not initialized");
-      }
       const result = await this?.client.query<Result>(raw, values);
       return { rows: result.rows, count: result.rowCount };
     } catch (error) {
       this.logger.error("Cannot run query", raw);
       throw error;
     }
-  }
+  };
 
   healthCheck = async () => {
+    this.checkIfClientIsInitialized();
     await this.query({ raw: HEALTH_CHECK_QUERY });
-    console.info("Health check passed at ", new Date().toISOString());
+    this.logger.info("Health check passed at ", new Date().toISOString());
   };
+
+  transaction: Transaction = async (doQueries) => {
+    this.checkIfClientIsInitialized();
+    try {
+      await this.client.query("BEGIN");
+      const result = await doQueries(this.query);
+      await this.client.query("COMMIT");
+      return result;
+    } catch (error) {
+      await this.client.query("ROLLBACK");
+      this.logger.error("Transaction failed", error);
+      throw error;
+    }
+  };
+
+  private checkIfClientIsInitialized() {
+    if (!this.client) {
+      throw new Error("Client is not initialized. Run init() first.");
+    }
+  }
 }
 
 export default PostgresDatabase;

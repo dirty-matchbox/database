@@ -7,7 +7,8 @@
     "build": "tsc",
     "prepare": "npm run build",
     "release": "standard-version && git push --follow-tags && npm publish",
-    "start-postgres-example": "yarn --cwd ./postgres/example start-dev-example"
+    "start-postgres-example": "yarn --cwd ./postgres/example start-dev-example",
+    "postgres-database-migrate": "ts-node ./postgres/migrations/scripts/index.ts"
   },
   "peerDependencies": {
     "awilix": "*"
@@ -19,7 +20,10 @@
   "dependencies": {
     "@types/pg": "^8.11.0",
     "awilix": "^10.0.1",
+    "fs": "^0.0.1-security",
     "pg": "^8.11.3",
-    "typescript": "^5.3.3"
+    "ts-node": "^10.9.2",
+    "typescript": "^5.3.3",
+    "yargs": "^17.7.2"
   }
 }

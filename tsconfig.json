@@ -2,5 +2,10 @@
   "compilerOptions": {
     "composite": true,
     "outDir": "./dist",    
+    "baseUrl": ".",
+    "paths": {
+      "@dirty-matchbox/database": ["../../dist"],
+      "@dirty-matchbox/database/*": ["../../dist/*"],
+    },
   },
 }

@@ -5,11 +5,21 @@
   "license": "ISC",
   "scripts": {
     "build": "tsc'",
-    "start-dev-example": "yarn tsc --build --force && yarn nodemon 'index.ts' --watch '.'"
+    "start-dev-example": "yarn tsc --build --force && yarn nodemon 'index.ts' --watch '.'",
+    "run-migrate-script": "ts-node ../migrations/scripts/index.ts",
+    "run-migrate-init": "yarn run-migrate-script init -p=\"./migrations\"",
+    "run-migrate-make": "yarn run-migrate-script make -p=\"./migrations\" -d=test",
+    "run-migrate-sync": "yarn run-migrate-script migrate -m=syncAll -p=migrations -d=test",
+    "run-migrate-up": "yarn run-migrate-script migrate -m=up -p=migrations -d=test",
+    "run-migrate-down": "yarn run-migrate-script migrate -m=down -p=migrations -d=test"
   },
   "dependencies": {
+    "babel-plugin-module-resolver": "^5.0.2",
     "nodemon": "^3.1.9",
     "ts-node": "^10.9.2",
     "typescript": "^5.4.2"
+  },
+  "devDependencies": {
+    "vite-plugin-dynamic-import": "^1.6.0"
   }
 }
