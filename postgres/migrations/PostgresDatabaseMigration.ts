@@ -36,8 +36,6 @@ class PostgresDatabaseMigration implements PostgresDatabaseMigrationInterface {
       }
       this.postgresDatabase = new PostgresDatabase({ config, logger });
     } catch (error) {
-      console.log(error);
-      console.log(this.logger);
       this.logger.error(
         `Failed start Migration instance ${this.config.name}`,
         error
@@ -109,7 +107,6 @@ class PostgresDatabaseMigration implements PostgresDatabaseMigrationInterface {
       migration.title.split("_")[0],
       this.createDescription(migration.title.split("_")[1]),
     ];
-    console.log("ENTRY", migration, values);
     await this.postgresDatabase.query({
       raw: `INSERT INTO migrations (title, "createdAt", description) VALUES ($1, $2, $3);`,
       values,
@@ -135,7 +132,6 @@ class PostgresDatabaseMigration implements PostgresDatabaseMigrationInterface {
   };
 
   getMigration = (title: string) => {
-    console.log("SEARCH", title, this.migrations);
     return this.migrations.find((migration) => migration.title === title);
   };
 
@@ -153,7 +149,6 @@ class PostgresDatabaseMigration implements PostgresDatabaseMigrationInterface {
   }
 
   public async up() {
-    console.log("UP", this.config);
     await this.postgresDatabase.transaction(async (query) => {
       await this.updateDatabaseMigrations();
       const entries = await this.getEntries();
@@ -164,7 +159,6 @@ class PostgresDatabaseMigration implements PostgresDatabaseMigrationInterface {
       const current = entries[currentIndex];
 
       if (!current) {
-        console.log("ENTRIES", entries);
         const firstEntry = entries[0];
         const firstMigration = this.getMigration(firstEntry.title);
         if (!firstMigration) {
