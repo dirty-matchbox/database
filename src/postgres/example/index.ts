@@ -1,4 +1,4 @@
-import {PostgresDatabase} from "@dirty-matchbox/database/postgres";
+import {PostgresDatabase} from "@dirty-matchbox/database";
 
 const database = new PostgresDatabase({
   config: {

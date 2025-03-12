@@ -1,0 +1,22 @@
+{
+    "plugins": [
+      [
+        "module-resolver",
+        {
+          "root": ["."],
+          "alias": {
+            "@dirty-matchbox/database": "./src",
+            "@dirty-matchbox/database/*": "./src/*",
+            "underscore": "lodash"
+          }
+        }
+      ],
+      "syntax-dynamic-import"
+    ],
+    "presets": [["env", { "modules": false }]],
+    "env": {
+      "test": {
+        "plugins": ["dynamic-import-node"]
+      }
+    }
+  }

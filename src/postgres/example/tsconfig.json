@@ -2,10 +2,6 @@
   "compilerOptions": {
     "experimentalDecorators": true,
     "baseUrl": ".",
-    "paths": {
-      "@dirty-matchbox/database": ["../../dist"],
-      "@dirty-matchbox/database/*": ["../../dist/*"],
-    },
     "outDir": "./dist",
   },
   "include": ["./index.ts", "./src/**/*", "./config/**/*", "./migrations/**/*"],

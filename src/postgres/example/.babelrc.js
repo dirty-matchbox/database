@@ -1,11 +1,14 @@
-{
+var path = require('path');
+
+module.exports = {
   "plugins": [
     [
       "module-resolver",
       {
         "root": ["."],
         "alias": {
-          "@dirty-matchbox/database": "../../*",
+          "@dirty-matchbox/database": path.resolve(__dirname, "../../dist"),
+          "@dirty-matchbox/database/*": path.resolve(__dirname, "../../dist/*"),
           "underscore": "lodash"
         }
       }
@@ -18,4 +21,4 @@
       "plugins": ["dynamic-import-node"]
     }
   }
-}
+};

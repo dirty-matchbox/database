@@ -14,12 +14,13 @@
     "run-migrate-down": "yarn run-migrate-script migrate -m=down -p=migrations -d=test"
   },
   "dependencies": {
-    "babel-plugin-module-resolver": "^5.0.2",
-    "nodemon": "^3.1.9",
-    "ts-node": "^10.9.2",
-    "typescript": "^5.4.2"
+    "@dirty-matchbox/database": "git+https://github.com/dirty-matchbox/database.git"
   },
   "devDependencies": {
+    "ts-node": "^10.9.2",
+    "typescript": "^5.4.2",
+    "babel-plugin-module-resolver": "^5.0.2",
+    "nodemon": "^3.1.9",
     "vite-plugin-dynamic-import": "^1.6.0"
   }
 }
