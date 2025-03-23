@@ -5,16 +5,13 @@
   "license": "ISC",
   "scripts": {
     "build": "tsc'",
-    "start-dev-example": "yarn tsc --build --force && yarn nodemon 'index.ts' --watch '.'",
+    "start-dev-example": "yarn nodemon 'index.ts' --watch '.'",
     "run-migrate-script": "ts-node ../migrations/scripts/index.ts",
     "run-migrate-init": "yarn run-migrate-script init -p=\"./migrations\"",
     "run-migrate-make": "yarn run-migrate-script make -p=\"./migrations\" -d=test",
     "run-migrate-sync": "yarn run-migrate-script migrate -m=syncAll -p=migrations -d=test",
     "run-migrate-up": "yarn run-migrate-script migrate -m=up -p=migrations -d=test",
     "run-migrate-down": "yarn run-migrate-script migrate -m=down -p=migrations -d=test"
-  },
-  "dependencies": {
-    "@dirty-matchbox/database": "git+https://github.com/dirty-matchbox/database.git"
   },
   "devDependencies": {
     "ts-node": "^10.9.2",

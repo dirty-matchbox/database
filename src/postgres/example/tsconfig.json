@@ -2,7 +2,6 @@
   "compilerOptions": {
     "experimentalDecorators": true,
     "baseUrl": ".",
-    "outDir": "./dist",
   },
   "include": ["./index.ts", "./src/**/*", "./config/**/*", "./migrations/**/*"],
   "exclude": ["node_modules", "./src/**/tests/**", "./src/**/dist/**"],
@@ -15,7 +14,6 @@
   "esModuleInterop": true,
   "skipLibCheck": true,
   "forceConsistentCasingInFileNames": true,
-  "outDir": "dist",
   "noEmit": true,
   "paths": {
     "*": ["./*.d.ts"]

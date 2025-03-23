@@ -1,11 +1,12 @@
 {
   "compilerOptions": {
-    "composite": true,
+    "composite": false,
     "outDir": "./dist",
     "rootDir": "./src",
     "baseUrl": ".",
     "paths": {
       "@dirty-matchbox/database": ["./src"]
     }
-  }
+  },
+  "include": ["src"]
 }
